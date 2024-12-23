@@ -1,49 +1,14 @@
 import { Router } from "express";
-import crypto from "crypto"
+import { getCart, createCart, insertProductCart, updateProductsCart, updateQuantityProductCart, deleteCart, deleteProductCart} from "../controllers/carts.controllers.js";
 
-constcartRouter = Router()
+const cartRouter = Router()
 
-const carritos =[]
-
-cartRouter.get('/:cid', (req,res) => {
-    const idCarrito = req.params.cid
-    const carrito = carritos.find(cart => cart.id == idCarrito)
-
-    if(carrito) {
-        res.status(200).send(carrito.products)
-    } else {
-        res.status(404).send({mensaje: "El carrito no existe"})
-    }
-})
-
-cartRouter.post('/', (req,res) => {
-    const newcart ={
-        id: crypto.randomBytes(5).toString('hex'),
-        products: []
-    }
-
-    carritos.push(newcart)
-
-    res.status(200).send(`Carrito creado correctamente con el id ${newcart.id}`)
-})
-
-cartRouter.post('/:cid/products/:pid', (req,res) => {
-    const idCarrito = req.params.cid
-    const idproducto = req.params.pid
-    const {quantity} = req.body
-    const carrito = carritos.find(cart => cart.id == idCarrito)
-
-    if(carrito) {
-        const indice = carrito.products.findIndex(prod => prod.id == idProducto)
-        if(indice != -1) {
-            carrito.products[indice]. quantity = quantity
-        } else {
-            carrito.products.push({id: idProducto, quantity: quantity})
-        }
-        res.status(200).send("Carrito actualizado correctamente")
-    } else {
-        res.status(404).send({mensaje: "El carrito no existe"})
-    }
-})
+cartRouter.get('/:cid', getCart) //Consultar los productos guardados en un carritp
+cartRouter.post('/', createCart) //Crear un nuevo carrito
+cartRouter.post('/:cid/products/:pid', insertProductCart) //Agregar nuevo producto al carrito
+cartRouter.put('/:cid', updateProductsCart) //Mofidicar totalmente el array de productos del carrito 
+cartRouter.put('/:cid/products/:pid', updateQuantityProductCart)  //Actualizo cantidad de productos
+cartRouter.delete('/:cid', deleteCart)  //Elimino todos los productos del carrito
+cartRouter.delete('/:cid/products/:pid', deleteProductCart) //Elimino producto del carrito
 
 export default cartRouter

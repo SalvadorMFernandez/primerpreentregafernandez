@@ -3,9 +3,9 @@ import { create } from 'express-handlebars'
 import { Server } from 'socket.io'
 import path from 'path'
 import { __dirname } from './path.js'
-import productRouter from './routes/productos.routes.js'
-import cartRouter from './routes/carrito.routes.js'
-import multerRouter from './routes/imagenes.routes.js'
+import productRouter from './src/routes/productos.routes.js'
+import cartRouter from './src/routes/carrito.routes.js'
+import multerRouter from './src/routes/imagenes.routes.js'
 import { log } from 'console'
 
 
