@@ -3,7 +3,7 @@ import { getCart, createCart, insertProductCart, updateProductsCart, updateQuant
 
 const cartRouter = Router()
 
-cartRouter.get('/:cid', getCart) //Consultar los productos guardados en un carritp
+cartRouter.get('/:cid', getCart) //Consultar los productos guardados en un carrito
 cartRouter.post('/', createCart) //Crear un nuevo carrito
 cartRouter.post('/:cid/products/:pid', insertProductCart) //Agregar nuevo producto al carrito
 cartRouter.put('/:cid', updateProductsCart) //Mofidicar totalmente el array de productos del carrito 
